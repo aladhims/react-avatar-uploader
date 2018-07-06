@@ -83,3 +83,9 @@ AvatarUploader.propTypes = {
     defaultImg: PropTypes.string,
     formDataName: PropTypes.string
 }
+
+AvatarUploader.defaultProps = {
+    disabled: false,
+    fileType: "image/*",
+    size: 150,
+};
