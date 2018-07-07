@@ -4,8 +4,10 @@ import styled from "styled-components";
 const Uploader = styled.input`
     display: block;
     opacity: 0;
-    width: 100%;
-    height: 100%;
+    border-radius: 50%;
+    position: absolute;
+    width: ${props => props.size ? props.size + 'px' : '150px'};
+    height: ${props => props.size ? props.size + 'px' : '150px'};
     cursor: pointer;
     z-index: 2;
 `

@@ -65,10 +65,11 @@ export default class AvatarUploader extends Component {
             <Avatar size={size}>
                 {(currentImage || defaultImg)
                     ? <Avatar.Preview src={currentImage || defaultImg}/>
-                    : <Avatar.Uploader
-                        fileType={fileType}
-                        onChange={this.onImageChange}
-                        disabled={disabled}/>}
+                    : null}
+                <Avatar.Uploader
+                    fileType={fileType}
+                    onChange={this.onImageChange}
+                    disabled={disabled}/>
             </Avatar>
         )
     }
@@ -87,5 +88,5 @@ AvatarUploader.propTypes = {
 AvatarUploader.defaultProps = {
     disabled: false,
     fileType: "image/*",
-    size: 150,
+    size: 150
 };

@@ -5,7 +5,8 @@ import AvatarUploader from '../../src';
 const App = () => (<AvatarUploader
     size={150}
     uploadURL="http://localhost:3000"
-    fileType={"image/png"}/>);
+    fileType={"image/png"}
+    onFinished={(err, res) => console.log(err)}/>);
 
     
 render(
