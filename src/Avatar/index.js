@@ -8,8 +8,8 @@ import defaultPlaceholder from "../static/assets/upload_icon.png"
 const Avatar = styled.div `
     display: flex;
     justify-content: center;
-    width: ${props => props.size ? props.size + 'px' : '150px'};
-    height: ${props => props.size ? props.size + 'px' : '150px'};
+    width: ${props => props.size + 'px'};
+    height: ${props => props.size + 'px'};
     border: 2px dashed #9b9b9b;
     border-radius: 50%;
     cursor: pointer;

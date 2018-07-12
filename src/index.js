@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
+import axios from "axios";
 import Avatar from './Avatar';
 
 export default class AvatarUploader extends Component {
@@ -19,22 +20,29 @@ export default class AvatarUploader extends Component {
             .bind(this);
     }
     async uploadImage(avatar) {
-        const {uploadURL, onFinished, formDataName} = this.props;
+        const {uploadURL, onStart, onProgress, onFinished, formDataName, customHeaders} = this.props;
         if (uploadURL) {
             try {
+                if (onStart && typeof onStart === 'function') {
+                    onStart();
+                }
                 this.setState({loading: true});
                 const avatarForm = new FormData();
 
                 avatarForm.append(formDataName, avatar, avatar.name);
 
-                let res = await fetch(uploadURL, {
-                    method: 'POST',
-                    credentials: 'include',
-                    body: avatarForm
-                });
+                const res = await axios.post(uploadURL, avatarForm, {
+                    withCredentials: true,
+                    headers: customHeaders ? customHeaders : null,
+                    onUploadProgress: progressEvent => {
+                        let percentCompleted = Math.floor((progressEvent.loaded * 100) / progressEvent.total);
+                        if (onProgress && typeof onProgress === 'function') {
+                            onProgress(percentCompleted);
+                        }
+                    }
+                })
 
                 if (res.status && res.status === 200) {
-                    res = await res.json();
                     this.setState({currentImage: res, loading: false})
 
                     if (onFinished && typeof onFinished === 'function') {
@@ -78,6 +86,9 @@ export default class AvatarUploader extends Component {
 AvatarUploader.propTypes = {
     uploadURL: PropTypes.string.isRequired,
     onFinished: PropTypes.func,
+    onStart: PropTypes.func,
+    onProgress: PropTypes.func,
+    customHeaders: PropTypes.object,
     disabled: PropTypes.bool,
     fileType: PropTypes.string,
     size: PropTypes.number,
@@ -87,6 +98,6 @@ AvatarUploader.propTypes = {
 
 AvatarUploader.defaultProps = {
     disabled: false,
-    fileType: "image/*",
+    fileType: "image/jpeg",
     size: 150
 };
