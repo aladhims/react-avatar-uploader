@@ -34,12 +34,15 @@ or with NPM
 
 ----
 ## Props
-* uploadURL: string
+* uploadURL: string; required
 * onStart: function()
 * onProgress: function(percentage)
 * onFinished: function(error, response)
-* disabled: boolean
-* fileType: string
-* size: number
+* placeholder: string; default: arrow
+* customHeaders: object;
+* withCredentials: boolean; default: false
+* disabled: boolean; default: false
+* fileType: string; default: "image/jpeg"
+* size: number; default: 150
 * defaultImg: string
-* formDataName: string
+* name: string; required

@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import Avatar from './Avatar';
 
+import defaultPlaceholder from "./static/assets/upload_icon.png"
+
 export default class AvatarUploader extends Component {
     constructor(props) {
         super(props);
@@ -20,7 +22,7 @@ export default class AvatarUploader extends Component {
             .bind(this);
     }
     async uploadImage(avatar) {
-        const {uploadURL, onStart, onProgress, onFinished, formDataName, customHeaders} = this.props;
+        const {uploadURL, onStart, onProgress, onFinished, name, customHeaders, withCredentials} = this.props;
         if (uploadURL) {
             try {
                 if (onStart && typeof onStart === 'function') {
@@ -29,10 +31,10 @@ export default class AvatarUploader extends Component {
                 this.setState({loading: true});
                 const avatarForm = new FormData();
 
-                avatarForm.append(formDataName, avatar, avatar.name);
+                avatarForm.append(name, avatar, avatar.name);
 
                 const res = await axios.post(uploadURL, avatarForm, {
-                    withCredentials: true,
+                    withCredentials,
                     headers: customHeaders ? customHeaders : null,
                     onUploadProgress: progressEvent => {
                         let percentCompleted = Math.floor((progressEvent.loaded * 100) / progressEvent.total);
@@ -67,10 +69,10 @@ export default class AvatarUploader extends Component {
         this.uploadImage(imageToUpload);
     }
     render() {
-        const {disabled, size, defaultImg, fileType} = this.props;
+        const {disabled, size, defaultImg, fileType, placeholder} = this.props;
         const {currentImage} = this.state;
         return (
-            <Avatar size={size}>
+            <Avatar placeholder={placeholder} size={size}>
                 {(currentImage || defaultImg)
                     ? <Avatar.Preview src={currentImage || defaultImg}/>
                     : null}
@@ -88,16 +90,20 @@ AvatarUploader.propTypes = {
     onFinished: PropTypes.func,
     onStart: PropTypes.func,
     onProgress: PropTypes.func,
+    placeholder: PropTypes.string,
+    withCredentials: PropTypes.bool,
     customHeaders: PropTypes.object,
     disabled: PropTypes.bool,
     fileType: PropTypes.string,
     size: PropTypes.number,
     defaultImg: PropTypes.string,
-    formDataName: PropTypes.string
+    name: PropTypes.string.isRequired
 }
 
 AvatarUploader.defaultProps = {
     disabled: false,
+    placeholder: defaultPlaceholder,
+    withCredentials: false,
     fileType: "image/jpeg",
     size: 150
 };

@@ -2,9 +2,6 @@ import styled from "styled-components";
 import Uploader from "./Uploader";
 import ImagePreview from "./ImagePreview";
 
-// using asset background image
-import defaultPlaceholder from "../static/assets/upload_icon.png"
-
 const Avatar = styled.div `
     display: flex;
     justify-content: center;
@@ -18,7 +15,7 @@ const Avatar = styled.div `
     background-repeat: no-repeat;
     overflow: hidden;
     background-size: 60% 60%;
-    background-image: url(${props => props.placeholder ? props.placeholder : defaultPlaceholder});
+    background-image: url(${props => props.placeholder});
 `;
 
 Avatar.Uploader = Uploader;
