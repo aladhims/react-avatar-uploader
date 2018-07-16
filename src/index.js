@@ -45,7 +45,7 @@ export default class AvatarUploader extends Component {
                 })
 
                 if (res.status && res.status === 200) {
-                    this.setState({currentImage: res, loading: false})
+                    this.setState({loading: false})
 
                     if (onFinished && typeof onFinished === 'function') {
                         onFinished(false, res);
