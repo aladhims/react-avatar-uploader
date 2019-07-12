@@ -4,10 +4,7 @@ import { AxiosResponse } from "axios";
 export interface Props {
   uploadURL: string;
   name: string;
-  onFinished?: (
-    err: boolean | Error,
-    res?: Promise<AxiosResponse<any>>
-  ) => void;
+  onFinished?: (err: boolean | Error, res?: AxiosResponse<any>) => void;
   onStart?: () => void;
   onProgress?: (percent: number) => void;
   placeholder?: string;
