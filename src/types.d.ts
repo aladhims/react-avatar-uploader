@@ -16,7 +16,7 @@ export interface Props {
   disabled?: boolean;
   fileType?: string;
   size?: number;
-  defaultImg: string;
+  defaultImg?: string;
 }
 
 declare class AvatarUploader extends React.Component<Props> {
