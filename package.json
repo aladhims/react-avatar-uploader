@@ -3,6 +3,7 @@
   "version": "1.0.3",
   "description": "A React Component for uploading avatar to the server",
   "main": "dist/index.js",
+  "types": "src/types.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --mode development --open --hot",
@@ -56,5 +57,8 @@
     "webpack": "^4.14.0",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.4"
+  },
+  "dependencies": {
+    "@types/axios": "^0.14.0"
   }
 }
